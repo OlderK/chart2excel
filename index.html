@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="9edfb138689b418d954c.ico" type="image/x-icon">
+  <title>JSON2Excel</title>
+<script defer src="bundle.js"></script></head>
+
+<body>
+  <div id="app">
+    <ul class="table">
+      <!-- :class="['animate__animated', currentAnimate]" -->
+      <li v-for="item in tHeaderList" :key="item.id">
+        <button class="remove-btn" title="删除" @click="removeHeader(item.id)">-</button>
+        <input class="title" type="text" v-model.trim="item.title" :title="item.title" placeholder="请输入标题...">
+        <select class="dropdown-menu" v-model="item.type" placeholder="请选择数据类型">
+          <option class="menu-item" v-for="op in item.typeList" :key="op.id" :value="op.id">{{ op.label }}
+          </option>
+        </select>
+        <template v-if="item.type === 0">
+          <div class="custom-list">
+            <span v-for="(m, i) in item.customList" :key="i">
+              <input type="text" v-model="m">
+            </span>
+          </div>
+        </template>
+      </li>
+    </ul>
+    <div class="option">
+      <button class="btn" @click="addNewHeader" title="添加">+</button>
+      <button class="btn" @click="export2Excel" title="导出">⇨</button>
+      <div class="export-num">
+        <div v-for="item in exportCanSelectNumList" :key="item">
+          <label class="" :for="item">{{ item }}</label>
+          <input :id="item" type="radio" v-model="exportNum" :value="item" />
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
